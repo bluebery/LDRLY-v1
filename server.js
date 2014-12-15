@@ -42,7 +42,7 @@ router.route('/sendStat')
 		var gameStat = new GameStat(); 		// create a new instance of the Stat model
 		gameStat.name = req.body.name;  // set the stats name (comes from the request)
 		gameStat.value = req.body.value;
-		gameStat.uid = req.body.uid;
+		gameStat.username = req.body.username;
 	
 		// save the stat and check for errors
 		gameStat.save(function (err) {
@@ -53,13 +53,16 @@ router.route('/sendStat')
 		});
 	});
 
-// on routes that end in /getLeaderboard/:statName
+// on routes that end in /getLeaderboard 
+// require query string key statname
 // ----------------------------------------------------
-router.route('/getLeaderboard/:statName')
+router.route('/getLeaderboard')
 
-	// get the game stat with that id (accessed at GET http://localhost:8080/api/getLeaderboard/:statName)
+	// get the game stat with that id (accessed at GET http://localhost:8080/api/getLeaderboard?statname=name)
 	.get(function (req, res) {
-		GameStat.find({ name: req.params.statName }).sort({ value: 'desc' }).lean().select('value uid -_id').exec(function (err, docs) {
+		if (!req.query.statname) { res.json({ message: 'You must provide a statname in the query string!' }); return; }
+
+		GameStat.find({ name: req.query.statname }).sort({ value: 'desc' }).lean().select('value username -_id').exec(function (err, docs) {
 			if (err)
 				res.send(err);
 		
@@ -73,13 +76,16 @@ router.route('/getLeaderboard/:statName')
 		});
 	});
 
-// on routes that end in /getStats/:uid
+// on routes that end in /getStats
+// require query string key username
 // ----------------------------------------------------
-router.route('/getStats/:uid')
+router.route('/getStats')
 
-	// get the game stat with that id (accessed at GET http://localhost:8080/api/getStats/:uid)
+	// get the game stat with that id (accessed at GET http://localhost:8080/api/getStats?username=uid)
 	.get(function (req, res) {
-		GameStat.find({ uid: req.params.uid }).select('name value -_id').exec(function (err, docs) {
+		if (!req.query.username) { res.json({ message: 'You must provide a username in the query string!' }); return; }
+		
+		GameStat.find({ username: req.query.username }).select('name value -_id').exec(function (err, docs) {
 			if (err)
 				res.send(err);
 		
