@@ -57,7 +57,7 @@ router.route('/sendStat')
 // on routes that end in /getLeaderboard. requires query string key statname
 router.route('/getLeaderboard')
 
-	// get the game stat with that id (accessed at GET http://localhost:8080/api/getLeaderboard?statname=name)
+	// get a list of game stats with the given statname (accessed at GET http://localhost:8080/api/getLeaderboard?statname=name)
 	.get(function (req, res) {
 
 		if (!req.query.statname) {
@@ -82,7 +82,7 @@ router.route('/getLeaderboard')
 // on routes that end in /getStats. requires query string key username
 router.route('/getStats')
 
-	// get the game stat with that id (accessed at GET http://localhost:8080/api/getStats?username=name)
+	// get a list of game stats with the given username (accessed at GET http://localhost:8080/api/getStats?username=name)
 	.get(function (req, res) {
 
 		if (!req.query.username) {
@@ -108,3 +108,8 @@ app.listen(port);
 console.log('LDRLY RESTful API Started on Port ' + port + '. Created by Wes Alcock.');
 
 var GameStat = require('./app/models/gamestat');
+
+// ONLY CALL THIS FOR INITIAL POPULATION OF DATABASE
+//var initdb = require('./initdatabase.js')(mongoose);
+
+
