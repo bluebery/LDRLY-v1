@@ -24,7 +24,9 @@ var router = express.Router();
 // middleware to use for all requests
 router.use(function (req, res, next) {
 	console.log('Something is happening.');
-	next(); // make sure we go to the next routes and don't stop here
+	
+	// make sure we go to the next routes and don't stop here
+	next();
 });
 
 // test route to make sure everything is working (accessed at GET http://localhost:8080/api)
@@ -32,8 +34,7 @@ router.get('/', function (req, res) {
 	res.json({ message: 'welcome to the LDRLY api' });
 });
 
-// on routes that end in /sendStat
-// ----------------------------------------------------
+// on routes that end in /sendStat. requires body input for name, value, and username.
 router.route('/sendStat')
 
 	// create a game stat (accessed at POST http://localhost:8080/api/sendStat)
@@ -53,14 +54,16 @@ router.route('/sendStat')
 		});
 	});
 
-// on routes that end in /getLeaderboard 
-// require query string key statname
-// ----------------------------------------------------
+// on routes that end in /getLeaderboard. requires query string key statname
 router.route('/getLeaderboard')
 
 	// get the game stat with that id (accessed at GET http://localhost:8080/api/getLeaderboard?statname=name)
 	.get(function (req, res) {
-		if (!req.query.statname) { res.json({ message: 'You must provide a statname in the query string!' }); return; }
+
+		if (!req.query.statname) {
+			res.json({ message: 'You must provide a statname in the query string!' });
+			return;
+		}
 
 		GameStat.find({ name: req.query.statname }).sort({ value: 'desc' }).lean().select('value username -_id').exec(function (err, docs) {
 			if (err)
@@ -76,14 +79,16 @@ router.route('/getLeaderboard')
 		});
 	});
 
-// on routes that end in /getStats
-// require query string key username
-// ----------------------------------------------------
+// on routes that end in /getStats. requires query string key username
 router.route('/getStats')
 
-	// get the game stat with that id (accessed at GET http://localhost:8080/api/getStats?username=uid)
+	// get the game stat with that id (accessed at GET http://localhost:8080/api/getStats?username=name)
 	.get(function (req, res) {
-		if (!req.query.username) { res.json({ message: 'You must provide a username in the query string!' }); return; }
+
+		if (!req.query.username) {
+			res.json({ message: 'You must provide a username in the query string!' });
+			return;
+		}
 		
 		GameStat.find({ username: req.query.username }).select('name value -_id').exec(function (err, docs) {
 			if (err)
@@ -93,7 +98,7 @@ router.route('/getStats')
 		});
 	});
 
-// REGISTER OUR ROUTES -------------------------------
+// REGISTER OUR ROUTES
 // all of our routes will be prefixed with /api
 app.use('/api', router);
 
