@@ -11,6 +11,8 @@ You can change these parameters in the server.js file to suit your needs.
 
 Note that there is a commented out call at the end of the server.js file used for generating sample data in a new mongodb instance. You can uncomment this before a run of the server if you are pointing at a new mongodb instance, but do not run it against the mongodb running at bluebery.dyx.com as it is already pre-populated. Remember to comment the method again if you are re-running the server or it will keep on creating duplicate records.
 
+Apologies if the indentation looks really big on github, but if you open in a text editor it should be fine (like notepad++).
+
 Postman is a chrome browser plugin you can use to test the API features.
 
 
