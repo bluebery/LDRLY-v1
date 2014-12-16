@@ -17,6 +17,9 @@ Postman is a chrome browser plugin you can use to test the API features.
 
 **API Methods**
 
+HTTP 200 Returned on okay
+HTTP 422 Returned on bad input semantics
+
 POST /api/sendStat
 
     eg.
@@ -45,4 +48,3 @@ GET /api/getStats?username=name
     Host: localhost:8080
     Cache-Control: no-cache
     Content-Type: application/x-www-form-urlencoded
-
