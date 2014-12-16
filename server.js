@@ -8,7 +8,8 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 
 // connect to our database
-mongoose.connect('mongodb://192.168.1.88:27017/test'); 
+mongoose.connect('mongodb://bluebery.dyx.com:27017/test'); // this db is pre populated and you can perform test api calls on it 
+//mongoose.connect('mongodb://192.168.1.88:27017/test');
 
 // configure app to use bodyParser() - this will let us get the data from a POST
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -128,6 +129,7 @@ console.log('LDRLY RESTful API Started on Port ' + port + '. Created by Wes Alco
 var GameStat = require('./app/models/gamestat');
 
 // ONLY CALL THIS FOR INITIAL POPULATION OF DATABASE
+// Please do not use on bluebery.dyx.com as this is already pre populated.
 //var initdb = require('./initdatabase.js')(mongoose);
 
 
