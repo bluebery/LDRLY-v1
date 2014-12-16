@@ -9,7 +9,7 @@
 By default the server will run on port 8080 and will connect to mongodb running at bluebery.dyx.com:27017/test.
 You can change these parameters in the server.js file to suit your needs.
 
-Note that there is a commented out call at the end of the file used for generating sample data in a new mongodb instance. You can uncomment this before a run of the server if you are pointing at a new mongodb instance, but do not run it against the mongodb running at bluebery.dyx.com as it is already pre-populated. Remember to comment the method again if you are re-running the server or it will keep on creating duplicate records.
+Note that there is a commented out call at the end of the server.js file used for generating sample data in a new mongodb instance. You can uncomment this before a run of the server if you are pointing at a new mongodb instance, but do not run it against the mongodb running at bluebery.dyx.com as it is already pre-populated. Remember to comment the method again if you are re-running the server or it will keep on creating duplicate records.
 
 Postman is a chrome browser plugin you can use to test the API features.
 
