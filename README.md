@@ -1,8 +1,8 @@
 ﻿# LDRLY-v1
 
-Clone repo to your local machine
-Run npm install
-Run npm server
+- Clone repo to your local machine
+- Run npm install
+- Run npm server
 
 By default the server will run on port 8080 and will connect to mongodb running at bluebery.dyx.com:27017/test.
 You can change these parameters in the server.js file to suit your needs.
@@ -11,34 +11,36 @@ Note that there is a commented out call at the end of the file used for generati
 
 Postman is a chrome browser plugin you can use to test the API features.
 
-API Methods
+
+
+**API Methods**
 
 POST /api/sendStat
 
-  eg.
-  
-  POST /api/sendStat HTTP/1.1
-  Host: localhost:8080
-  Cache-Control: no-cache
-  Content-Type: application/x-www-form-urlencoded
-  
-  value=243&username=user1&name=weapons
+    eg.
+    
+    POST /api/sendStat HTTP/1.1
+    Host: localhost:8080
+    Cache-Control: no-cache
+    Content-Type: application/x-www-form-urlencoded
+    
+    value=243&username=user1&name=weapons
 
 GET /api/getLeaderboard?statname=name
 
-  eg.
-  
-  GET /api/getLeaderboard?statname=xp HTTP/1.1
-  Host: localhost:8080
-  Cache-Control: no-cache
-  Content-Type: application/x-www-form-urlencoded
+    eg.
+    
+    GET /api/getLeaderboard?statname=xp HTTP/1.1
+    Host: localhost:8080
+    Cache-Control: no-cache
+    Content-Type: application/x-www-form-urlencoded
 
 GET /api/getStats?username=name
 
-  eg.
-  
-  GET /api/getStats?username=user1 HTTP/1.1
-  Host: localhost:8080
-  Cache-Control: no-cache
-  Content-Type: application/x-www-form-urlencoded
+    eg.
+    
+    GET /api/getStats?username=user1 HTTP/1.1
+    Host: localhost:8080
+    Cache-Control: no-cache
+    Content-Type: application/x-www-form-urlencoded
 
