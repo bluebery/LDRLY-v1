@@ -4,7 +4,7 @@
 
 - Clone repo to your local machine
 - Run npm install
-- Run npm server
+- Run node server
 
 By default the server will run on port 8080 and will connect to mongodb running at bluebery.dyx.com:27017/test.
 You can change these parameters in the server.js file to suit your needs.
