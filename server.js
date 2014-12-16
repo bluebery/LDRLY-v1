@@ -40,17 +40,33 @@ router.route('/sendStat')
 	// create a game stat (accessed at POST http://localhost:8080/api/sendStat)
 	.post(function (req, res) {
 	
-		var gameStat = new GameStat(); 		// create a new instance of the Stat model
-		gameStat.name = req.body.name;  // set the stats name (comes from the request)
-		gameStat.value = req.body.value;
-		gameStat.username = req.body.username;
+		// simple check to ensure we have all three input items
+		if (!req.body.name || !req.body.value || !req.body.username) {
+			res.status(422).json({ error: 'You must provide a name, value, and username in the post data! Please try again.' });
+			return;
+		}
 	
-		// save the stat and check for errors
-		gameStat.save(function (err) {
-			if (err)
-				res.send(err);
+		// slightly more involved check to see if this is a duplicate stat entry for the given user
+		GameStat.find({ name: req.body.name, username: req.body.username }, function (err, docs) {
+
+			if (docs.length > 0) {
+				res.status(422).json({ error: 'This is a duplicate stat for given user! Please try again.' });
+				return;				
+			}
 		
-			res.json({ message: 'GameStat created!' });
+			// create new object for insertion
+			var gameStat = new GameStat(); 		
+			gameStat.name = req.body.name;  
+			gameStat.value = req.body.value;
+			gameStat.username = req.body.username;
+		
+			// save the stat and check for errors
+			gameStat.save(function (err) {
+				if (err)
+					res.send(err);
+			
+				res.json({ message: 'GameStat created!' });
+			});
 		});
 	});
 
@@ -59,9 +75,10 @@ router.route('/getLeaderboard')
 
 	// get a list of game stats with the given statname (accessed at GET http://localhost:8080/api/getLeaderboard?statname=name)
 	.get(function (req, res) {
-
+	
+		// simple check to ensure that we have a statname in the query string
 		if (!req.query.statname) {
-			res.json({ message: 'You must provide a statname in the query string!' });
+			res.status(422).json({ error: 'You must provide a statname in the query string! Please try again.' });
 			return;
 		}
 
@@ -84,9 +101,10 @@ router.route('/getStats')
 
 	// get a list of game stats with the given username (accessed at GET http://localhost:8080/api/getStats?username=name)
 	.get(function (req, res) {
-
+	
+		// simple check to ensure that we have a username in the query string
 		if (!req.query.username) {
-			res.json({ message: 'You must provide a username in the query string!' });
+			res.status(422).json({ error: 'You must provide a username in the query string! Please try again.' });
 			return;
 		}
 		
