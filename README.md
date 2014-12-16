@@ -1,5 +1,7 @@
 ﻿# LDRLY-v1
 
+**Installation**
+
 - Clone repo to your local machine
 - Run npm install
 - Run npm server
