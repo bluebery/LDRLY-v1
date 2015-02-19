@@ -75,3 +75,5 @@ $RECYCLE.BIN/
 *.msp
 LDRLY-v1.njsproj
 .ntvs_analysis.dat
+
+.idea/*

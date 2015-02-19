@@ -8,15 +8,16 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 
 // connect to our database
-mongoose.connect('mongodb://bluebery.dyx.com:27017/test'); // this db is pre populated and you can perform test api calls on it 
+mongoose.connect('mongodb://bluebery.dyx.com:27017/test'); // this db is pre populated and you can perform test api calls on it
 //mongoose.connect('mongodb://192.168.1.88:27017/test');
+//mongoose.connect('mongodb://localhost:27017/test');
 
 // configure app to use bodyParser() - this will let us get the data from a POST
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // set our port
-var port = process.env.PORT || 8080; 
+var port = process.env.PORT || 8080;
 
 // ROUTES FOR OUR API
 // =============================================================================
@@ -76,7 +77,7 @@ router.route('/getLeaderboard')
 
 	// get a list of game stats with the given statname (accessed at GET http://localhost:8080/api/getLeaderboard?statname=name)
 	.get(function (req, res) {
-	
+
 		// simple check to ensure that we have a statname in the query string
 		if (!req.query.statname) {
 			res.status(422).json({ error: 'You must provide a statname in the query string! Please try again.' });
